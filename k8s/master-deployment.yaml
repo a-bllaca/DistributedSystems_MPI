@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: master
+spec:
+  containers:
+    - name: master
+      image: master:v6
+      imagePullPolicy: Never
+      env:
+        - name: REDIS_HOST
+          value: "redis"
+      volumeMounts:
+        - name: data-volume
+          mountPath: /data
+  volumes:
+    - name: data-volume
+      hostPath:
+        path: /data  # <-- This is the path INSIDE the Minikube VM
+        type: Directory
